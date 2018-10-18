@@ -4,9 +4,7 @@
     <h3>Featured</h3>
     <aplayer
       theme="pic"
-      shuffle
       repeat="list"
-      show-lrc
       :muted.sync="muted"
       :volume.sync="volume"
       :music='list3[0]'
@@ -25,18 +23,39 @@ export default {
   },
   created() {
     console.log('in created')
-    var i = 3
-    while (i > 0) {
-      let obj = {
-        artist: 'Tram Quoc Bao',
-        src: require('../assets/mc.mp3'),
-        pic: require('../assets/photo2.jpg')
-      }
-      this.list3.push(obj)
-      i = i - 1
-      console.log(i)
+    this.list3 = this.getMetaData()
+
+
+    // var i = 3
+    // while (i > 0) {
+    //   let obj = {
+    //     artist: 'Tram Quoc Bao',
+    //     src: require('../assets/mc.mp3'),
+    //     pic: require('../assets/photo2.jpg')
+    //   }
+    //   this.list3.push(obj)
+    //   i = i - 1
+    //   console.log(i)
+    // }
+    // console.log(this.list3)
+  },
+  methods: {
+    getMetaData() {
+      return [
+            {
+              pic: require('../assets/mtce24/01 mc/mc.jpg'),
+              src: require('../assets/mtce24/01 mc/mc.mp3')
+            },
+            {
+              src: require('../assets/mtce24/02 libertango/libertango.mp3'),
+              pic: require('../assets/mtce24/02 libertango/photo2.jpg')
+            },
+            {
+              pic: require('../assets/mtce24/03 under paris skies/paris.jpg'),
+              src: require('../assets/mtce24/03 under paris skies/paris.mp3')
+            }
+          ]
     }
-    console.log(this.list3)
   },
   data() {
     return {
