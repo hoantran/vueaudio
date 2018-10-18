@@ -1,0 +1,15 @@
+# 
+# .htaccess configuration below is required for Vue's router to work on shared hosting such as bluehost.
+# Be sure to rename this file to .htaccess and place it at the root of the serving directory
+#
+# From:  https://gist.github.com/davemackintosh/8ac35fff747dbf2c95e1
+#
+# Should also check out: https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations
+#
+#
+<ifModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule (.*) index.html [QSA,L]
+</ifModule>

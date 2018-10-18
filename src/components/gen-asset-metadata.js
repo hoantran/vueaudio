@@ -23,36 +23,58 @@ function copyFile(pathParts, oldName, newName) {
 //     artist: 'RADWIMPS',
 //     src: 'http://0.0.0.0:3000/aplayer/yourname.mp3',
 //     pic: require('../assets/mc-really-long-ass-url-without-space.jpg')
-function getMetaDataByExtension(pathParts, fileName){
+function getMetaDataByExtension(pathParts, fileName, rawFileName){
   pathParts.pop()
   pathParts.push(fileName)
   var fullSrc = pathParts.join('/')
 
   var fileParts = fileName.split('.')
   var fileNameLength = fileParts.length
-  if (fileNameLength > 0){
+  if (fileNameLength > 1){
     let key = undefined
-    var extension = fileParts[fileNameLength - 1]
+    let value = undefined
+    let extension = fileParts[fileNameLength - 1]
+    let baseName =  fileParts[fileNameLength - 2]
     if (extension === 'jpg' || extension === 'jpeg' || extension === 'png') {
       key = 'pic'
+      value = fullSrc
     } else if (extension === 'mp3' || extension === 'wav') {
       key = 'src'
+      value = fullSrc
     } else if (extension === 'artist') {
       key = 'artist'
+      value = baseName
     } else if (extension === 'title') {
       key = 'title'
+      value = baseName
     }
     return {  key: key,
-              value: fullSrc
+              value: value
             }
   } else {
     return undefined
   } 
 }
 
+function isRequireType(rawFileName) {
+  var fileParts = rawFileName.split('.')
+  var fileNameLength = fileParts.length
+  if (fileNameLength > 1){
+    let extension = fileParts[fileNameLength - 1]
+    if (extension === 'jpg' || extension === 'jpeg' || extension === 'png' ||
+        extension === 'mp3' || extension === 'wav') {
+      return true
+    }
+  }
+  return false
+}
+
+
 function objExists(obj) {
   return obj !== undefined && obj.key !== undefined
 }
+
+
 
 // the folder structure has to be in this format:
 // root_dir
@@ -80,16 +102,21 @@ function getFiles (dir, files_){
       var length = pathParts.length
       if (length > 0) {
         var fileName = pathParts[length - 1]
+        var rawFileName = fileName
         if (fileName !== '.DS_Store') {
-          if (containsSpace(fileName)) {
+          if (isRequireType(rawFileName) && containsSpace(fileName)) {
             var newName = removeSpaces(fileName)
             copyFile(pathParts, fileName, newName)
             fileName = newName
           }
-          let obj = (getMetaDataByExtension(pathParts, fileName))
+          let obj = (getMetaDataByExtension(pathParts, fileName, rawFileName))
           if (objExists(obj)) {
             song = song || {}
-            song[obj.key] = 'require(\''+obj.value+'\')'
+            if (obj.key === 'pic' || obj.key === 'src') {
+              song[obj.key] = 'require(\''+obj.value+'\')'
+            } else {
+              song[obj.key] = '\'' + obj.value + '\''
+            }
           }
         }
       }

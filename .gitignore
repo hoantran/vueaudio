@@ -14,5 +14,4 @@ yarn-error.log*
 *.sln
 
 # asset files
-static/
 assets/
