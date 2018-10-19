@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <img src="../static/vnhelplogo.jpg" alt="VNHELP LOGO" height="150" width="150">
     <router-view/>
   </div>
 </template>
