@@ -8,7 +8,7 @@ module.exports = {
   dev: {
 
     // Paths
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'tinh',
     assetsPublicPath: '/',
     proxyTable: {},
 
@@ -40,9 +40,9 @@ module.exports = {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
-    // Paths
+    // Paths : trying to obfuscate static directory:changed static to fed386a934gdmD
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
+    assetsSubDirectory: 'fed386a934gdmD',
     assetsPublicPath: '/',
 
     /**

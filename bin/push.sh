@@ -43,7 +43,8 @@ DIST_DIR="$SITE_DIR/dist/"
 
 REMOTE_DIR="./html/vnhelp"
 ARCHIVE_DIR="archive"
-CONTENTS="index.html static"
+# was static ---> now: fed386a934gdmD
+CONTENTS="index.html fed386a934gdmD"
 HTACCESS="$SITE_DIR/htaccess"
 
 COPY="scp -r -o User=$SSH_USER -o StrictHostKeyChecking=no $DIST_DIR/* $HOST_URL:$REMOTE_DIR"

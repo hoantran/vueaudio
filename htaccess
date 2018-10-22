@@ -13,3 +13,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule (.*) index.html [QSA,L]
 </ifModule>
+
+# Not allow any search engine to crawl
+<Files ~ ".">
+  Header set X-Robots-Tag "noindex, nofollow"
+</Files>
